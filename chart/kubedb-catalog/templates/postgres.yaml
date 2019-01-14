@@ -110,6 +110,7 @@ metadata:
     heritage: "{{ .Release.Service }}"
     release: "{{ .Release.Name }}"
 spec:
+  deprecated: true
   version: "10.2"
   db:
     image: "{{ .Values.dockerRegistry }}/postgres:10.2-v2"
@@ -135,7 +136,7 @@ spec:
   db:
     image: "{{ .Values.dockerRegistry }}/postgres:9.6-v3"
   exporter:
-    image: "{{ .Values.dockerRegistry }}/postgres_exporter:v0.4.6"
+    image: "{{ .Values.dockerRegistry }}/postgres_exporter:v0.4.7"
   tools:
     image: "{{ .Values.dockerRegistry }}/postgres-tools:9.6-v2"
 
@@ -154,9 +155,28 @@ spec:
   db:
     image: "{{ .Values.dockerRegistry }}/postgres:9.6.7-v3"
   exporter:
-    image: "{{ .Values.dockerRegistry }}/postgres_exporter:v0.4.6"
+    image: "{{ .Values.dockerRegistry }}/postgres_exporter:v0.4.7"
   tools:
     image: "{{ .Values.dockerRegistry }}/postgres-tools:9.6.7-v2"
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: "10.2-v2"
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    app: "{{ template "kubedb-catalog.name" . }}"
+    heritage: "{{ .Release.Service }}"
+    release: "{{ .Release.Name }}"
+spec:
+  version: "10.2"
+  db:
+    image: "{{ .Values.dockerRegistry }}/postgres:10.2-v3"
+  exporter:
+    image: "{{ .Values.dockerRegistry }}/postgres_exporter:v0.4.7"
+  tools:
+    image: "{{ .Values.dockerRegistry }}/postgres-tools:10.2-v2"
 
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
